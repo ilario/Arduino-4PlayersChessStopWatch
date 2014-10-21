@@ -107,7 +107,7 @@ void setup() {
     lcd.clear();
     lcd.print("Bottoni:");    
     lcd.setCursor(0, 1);
-    lcd.print("aut ana naz pol");    
+    lcd.print("aut ana naz sbi");    
 }
 
 
@@ -150,7 +150,17 @@ void loop() {
       currentPlayer = 0;
       analogWrite(redPin, maxLight);
       analogWrite(bluePin, 0);
-      analogWrite(greenPin, 0);      
+      analogWrite(greenPin, 0);
+      Serial.print("Tempo partita: ");
+      Serial.println(swTotElapsed);
+      Serial.print("Tempo Ana: ");
+      Serial.print(sw_ana.elapsed());
+      Serial.print(" Tempo Naz: ");
+      Serial.print(sw_naz.elapsed());
+      Serial.print(" Tempo Pol: ");
+      Serial.println(sw_pol.elapsed());
+      Serial.print("Inizia a giocare Aut, tempo giocatore: ");
+      Serial.println(sw_aut.elapsed());
     }    
     if(anaState != previousAnaState){
       sw_ana.start();
@@ -160,7 +170,17 @@ void loop() {
       currentPlayer = 1;
       analogWrite(redPin, 0);
       analogWrite(bluePin, 0);
-      analogWrite(greenPin, maxLight*.5);      
+      analogWrite(greenPin, maxLight*.5);
+      Serial.print("Tempo partita: ");
+      Serial.println(swTotElapsed);
+      Serial.print("Tempo Aut: ");
+      Serial.print(sw_aut.elapsed());
+      Serial.print(" Tempo Naz: ");
+      Serial.print(sw_naz.elapsed());
+      Serial.print(" Tempo Pol: ");
+      Serial.println(sw_pol.elapsed());
+      Serial.print("Inizia a giocare Ana, tempo giocatore: ");
+      Serial.println(sw_ana.elapsed());      
     }    
     if(nazState != previousNazState){
       sw_naz.start();
@@ -170,7 +190,17 @@ void loop() {
       currentPlayer = 2;
       analogWrite(redPin, maxLight*.8);
       analogWrite(bluePin, maxLight*.1);
-      analogWrite(greenPin, maxLight*.1);      
+      analogWrite(greenPin, maxLight*.1); 
+      Serial.print("Tempo partita: ");
+      Serial.println(swTotElapsed);
+      Serial.print("Tempo Aut: ");
+      Serial.print(sw_aut.elapsed());
+      Serial.print(" Tempo Ana: ");
+      Serial.print(sw_ana.elapsed());
+      Serial.print(" Tempo Pol: ");
+      Serial.println(sw_pol.elapsed());
+      Serial.print("Inizia a giocare Naz, tempo giocatore: ");
+      Serial.println(sw_naz.elapsed());     
     }  
     if(polState != previousPolState){
       sw_pol.start();
@@ -181,6 +211,16 @@ void loop() {
       analogWrite(redPin, 0);
       analogWrite(bluePin, maxLight*.5);
       analogWrite(greenPin, 0);
+      Serial.print("Tempo partita: ");
+      Serial.println(swTotElapsed);
+      Serial.print("Tempo Aut: ");
+      Serial.print(sw_aut.elapsed());
+      Serial.print(" Tempo Ana: ");
+      Serial.print(sw_ana.elapsed());
+      Serial.print(" Tempo Naz: ");
+      Serial.println(sw_naz.elapsed());
+      Serial.print("Inizia a giocare Pol, tempo giocatore: ");
+      Serial.println(sw_pol.elapsed());
     }
     buzzerSwitchState = digitalRead(buzzerSwitchPin);
     if(buzzerSwitchState != previousBuzzerSwitchState){
@@ -221,7 +261,7 @@ void loop() {
       
       lcd.setCursor(8, 1);
       
-      lcd.print("pol");
+      lcd.print("sbi");
       t_pol_m = sw_pol.elapsed()/60;
       t_pol_s = sw_pol.elapsed()%60;
       lcd.print(t_pol_m);
